@@ -4,7 +4,7 @@
  
  ## Datasets 
  The datasets we are goin to use are 
- - wildlife accidents 
+ - wildlife accidents (2008-2019 from the bavarian police)
  -  Pointfeatures
  -  Streets from Openstreetmap as Polylines
  -  Basemap: Landcover.tif_Europe_Landcover(13/15)
@@ -15,3 +15,4 @@
 - Kernelfunction
 - output pdf with the Kernels with the highest values
 - landscape analysis with the most intense Kernels, calculate the portion of forest/ meadow
+
