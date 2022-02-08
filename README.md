@@ -16,3 +16,9 @@
 - output pdf with the Kernels with the highest values
 - landscape analysis with the most intense Kernels, calculate the portion of forest/ meadow
 
+## Additional information:
+- https://storymaps.arcgis.com/stories/bede15cf99b94570bd88844a78cd2ec0 (explanation for KernelDensityEstimation)
+- 
+
+
+
