@@ -6,24 +6,27 @@
 
 import arcpy
 # Set environment settings
-env.workspace = ""
-
+arcpy.env.workspace = "C:\\Users\\clair\\Documents\\ArcGIS\\Projects\\wildlifekernel\\wildlifekernel.gdb"
+# otherwise it spits out an error if you run the code more then once with the same output name
+arcpy.env.overwriteOutput = True
 
 # Buffer streets
 # Set local variables
 in_features = "streets"
 # set output path
-output_buffer = "c:/output/output.gdb/bufferstreets"
+output_buffer = "C:\\Users\\clair\\Documents\\ArcGIS\\Projects\\wildlifekernel\\wildlifekernel.gdb\\bufferstreets"
 buffer_distance = "200 meters"
 # actual buffer function
 arcpy.analysis.Buffer(in_features, output_buffer, buffer_distance)
 
 
 # Intersect streets with accidents
-in_features = ["bufferstreets", "wildlife_accidents"]
-out_feature_class = "output.gdb/intersection"
-join_attributes = "NO_FID"
-arcpy.analysis.Intersect(in_features, out_feature_class, {join_attributes}, {cluster_tolerance}, {output_type})
+
+in_features = ["Roe_deer", "bufferstreets"]
+out_feature_class = "C:\\Users\\clair\\Documents\\ArcGIS\\Projects\\wildlifekernel\\wildlifekernel.gdb\\intersection"
+join_attributes = "all"
+output_type = "point"
+arcpy.analysis.Intersect(in_features, out_feature_class, join_attributes, output_type)
 
 
 # KERNELFUNCTION
@@ -33,6 +36,6 @@ arcpy.analysis.Intersect(in_features, out_feature_class, {join_attributes}, {clu
 
 # PRINT PDF
 # output path (folder). Please change accordingly
-outPath = "C:\\Users\\clair\\Desktop\\WS_20\\GeoApp"
+#outPath = "C:\\Users\\clair\\Desktop\\WS_20\\GeoApp"
 #generation of an empty PDF master document
-pdfDoc = arcpy.mp.PDFDocumentCreate(outPath + "kernelmap")
+#pdfDoc = arcpy.mp.PDFDocumentCreate(outPath + "kernelmap")
