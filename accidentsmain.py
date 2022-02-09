@@ -6,7 +6,7 @@
 
 import arcpy
 # Set environment settings
-from arcpy.sa import KernelDensity
+from arcpy.sa import KernelDensity, ExtractByMask
 
 # need for saving kernel later
 wildlifeGDB = "C:\\Users\\clair\\Documents\\ArcGIS\\Projects\\wildlifekernel\\wildlifekernel.gdb"
@@ -14,6 +14,9 @@ arcpy.env.workspace = wildlifeGDB
 # otherwise it spits out an error if you run the code more then once with the same output name
 arcpy.env.overwriteOutput = True
 
+# get input datasets
+inputStreets = arcpy.GetParameterAsText(0)
+inputAccidents = arcpy.GetParameterAsText()
 # Buffer streets
 # Set local variables
 in_features = "streets"
@@ -38,13 +41,15 @@ populationfield = "none"
 out_cell_values = "DENSITIES"
 # leave out cell size and search radius for now, does not work with it
 cell_size = 10
-search_radius = 400
+search_radius = 0.1
 
 kd = KernelDensity(in_features, populationfield)
 
+kd = ExtractByMask(kd, "bufferstreets")
 # saves the kernel in the database
-kd.save(wildlifeGDB + "\\" + in_features + "_kd")
+kd.save(wildlifeGDB + "\\" + "second_kd")
 
+#ExtractByMask(kd, "bufferstreets")
 # PRINT PDF
 # output path (folder). Please change accordingly
 #outPath = "C:\\Users\\clair\\Desktop\\WS_20\\GeoApp"
