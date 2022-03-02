@@ -10,15 +10,15 @@ lyrProject = m.listLayers ()[0]
 
 input = arcpy.GetParameterAsText(0)
 
-#print (lyrSBG)
-#for object in lyrProject:
-#    print(object)
-#lyrKDE = m.listLayers()[2]
+
 lyt = aprx.listLayouts()[0]
 print(lyt.name)
 mf = lyt.listElements("MAPFRAME_ELEMENT")[0]
+# set output path
 outPath = "C:\\Users\\felix\\OneDrive\\Desktop\\FinalProject_ApplicationDevelopment\\PDF_CREATOR\\"
+# file path of end result
 pdfDoc = arcpy.mp.PDFDocumentCreate(outPath + "KDE_compiled1.pdf")
+# set the extent of the map
 cur = arcpy.da.SearchCursor(lyrSBG.dataSource, ["SHAPE@", "GRIDCODE", "ID"], 'GRIDCODE = 5')
 #cur2 = arcpy.da.SearchCursor(lyrProject, 'OBJECT = Kernel*')
 #for row in cur2:
@@ -27,11 +27,14 @@ cur = arcpy.da.SearchCursor(lyrSBG.dataSource, ["SHAPE@", "GRIDCODE", "ID"], 'GR
 # cur1 = arcpy.da.SearchCursor(lyrKDE.dataSource, ["SHAPE@", "GRIDCODE", "ID"], 'GRIDCODE = 4')
 print (lyrSBG.dataSource)
 for row in cur:
+    # set the extent
     mf.camera.setExtent(row[0].extent)
     name = row[2]
     print(name)
     aprx.save
+    # export layer to PDF
     lyt.exportToPDF(outPath + str(name) +".PDF", 100)
+    # and append the page to the complete document
     pdfDoc.appendPages (outPath + str(name) +".PDF")
 pdfDoc.saveAndClose()
 print ("PDF Mapbook created")
